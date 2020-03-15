@@ -3,6 +3,7 @@ package main
 import (
 	"net/http"
 
+	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
 )
 
@@ -14,6 +15,9 @@ type Customer struct {
 
 func main() {
 	app := gin.Default()
+
+	// Allow Access-Control-Allow-Origin in header, before setting any route.
+	app.Use(cors.Default())
 
 	// TODO connect to sqlite3 database
 	// TODO Fetch customers data from database
