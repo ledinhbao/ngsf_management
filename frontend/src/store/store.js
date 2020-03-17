@@ -12,12 +12,13 @@ export default new Vuex.Store({
         SET_CUSTOMERS(state, customers) {
             state.customers = customers
         },
-        CREATE_CUSTOMER() {}
+        // FIXME this mutation must do something or an error will be thrown.
+        CREATE_CUSTOMER() {
+            console.log("Customer created")
+        }
     },
     actions: {
         createCustomer({ commit }, customer) {
-            // FIXME create separated apiClient, which contains header for application/form
-            //  instead of application/json
             services
                 .postCustomer(customer)
                 .then(response => {
@@ -28,7 +29,7 @@ export default new Vuex.Store({
                 .catch(error => {
                     console.log(
                         'Error when http.post creating customer: ' +
-                            error.response
+                            error
                     )
                 })
         },
