@@ -1,24 +1,21 @@
 import axios from 'axios'
 
 const baseURL = 'http://localhost:8090'
-const multiFormContentType = 'multipart/form-data'
+// const multiFormContentType = 'multipart/form-data'
+const formContentType = 'application/x-www-form-urlencoded'
 const jsonContentType = 'application/json'
 
-const apiPostClient = axios.create({
+const apiClient = axios.create({
     baseURL: baseURL,
     withCredentials: false,
     headers: {
-        Accept: jsonContentType,
-        'Content-Type': multiFormContentType
-    }
-})
-
-const apiClient = axios.create({
-    baseURL: 'http://localhost:8090',
-    withCredentials: false,
-    headers: {
         Accept: 'application/json',
-        'Content-Type': 'application/json'
+        post: {
+            'Content-Type': formContentType
+        },
+        common: {
+            'Content-Type': jsonContentType
+        }
     }
 })
 
@@ -28,6 +25,6 @@ export default {
     },
     postCustomer (customer) {
         // Using PostClient, prevent 400 Bad Request from server.
-        return apiPostClient.post('/customer/create', customer)
+        return apiClient.post('/customer/create', customer)
     }
 }

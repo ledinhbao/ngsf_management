@@ -1,7 +1,6 @@
 package main
 
 import (
-	"fmt"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -37,7 +36,6 @@ func main() {
 		var newCustomer Customer = Customer{}
 		c.BindJSON(&newCustomer)
 		newCustomer.ID = uint(len(customers) + 1)
-		fmt.Println("Created new customer: ", newCustomer)
 		customers = append(customers, newCustomer)
 		// return status OK to client
 		c.JSON(http.StatusOK, gin.H{
