@@ -13,7 +13,7 @@ export default {
     getCustomerList () {
         return apiClient.get('/customers')
     },
-    postCustomer () {
-        return apiClient.post('/customer/create')
+    postCustomer (customer) {
+        return apiClient.post('/customer/create', customer)
     }
 }

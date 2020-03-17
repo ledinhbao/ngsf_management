@@ -3,7 +3,7 @@
         <form @submit.prevent="onSubmit">
             <div class="input-block">
                 <label for="customerName">Họ & Tên</label>
-                <input type='text' />
+                <input type='text' v-model="customer.name" />
             </div>
             <input type="submit" value="Thêm nhà đầu tư" />
             
@@ -13,9 +13,21 @@
 
 <script>
 export default {
+    data() {
+        return {
+            customer: {
+                name: ""
+            }
+        }
+    },
     methods: {
         onSubmit: function() {
-            console.log("Submit worked")
+            this.$store.dispatch('createCustomer', this.customer)
+                .then(() => {
+                    this.$router.push({
+                        name: 'customer-list'
+                    })
+                })
         }
     }
 }

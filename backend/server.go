@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"net/http"
 
 	"github.com/gin-contrib/cors"
@@ -10,11 +11,13 @@ import (
 // Customer struct contains information about an customer
 type Customer struct {
 	ID               uint   `json:"id"`
-	Name             string `json:"name"`
+	Name             string `json:"name" form:"name"`
 	NGCHolding       int    `json:"ngcholding"`
 	Money            int    `json:"money"`
 	TransactionCount int    `json:"transaction_count"`
 }
+
+var customers []Customer
 
 func main() {
 	app := gin.Default()
@@ -26,9 +29,19 @@ func main() {
 	// TODO Fetch customers data from database
 	app.GET("/customers", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"customers": []Customer{
-				Customer{1, "Tran Huu Nghi", 16000, 160.00, 1},
-			},
+			"customers": customers,
+		})
+	})
+
+	app.POST("/customer/create", func(c *gin.Context) {
+		var newCustomer Customer = Customer{}
+		c.BindJSON(&newCustomer)
+		newCustomer.ID = uint(len(customers) + 1)
+		fmt.Println("Created new customer: ", newCustomer)
+		customers = append(customers, newCustomer)
+		// return status OK to client
+		c.JSON(http.StatusOK, gin.H{
+			"message": "Customer created",
 		})
 	})
 
