@@ -14,10 +14,20 @@ export default new Vuex.Store({
         }
     },
     actions: {
+        createCustomer ({ commit }) {
+            // TODO passing data with post request
+            services.postCustomer()
+                .then(response => {
+                    // TODO handle response from server.
+                })
+                .catch(error => {
+                    console.log('Error when http.post creating customer: ' + error.response)
+                })
+        },
         fetchCustomerList ({ commit }) {
             services.getCustomerList()
                 .then(response => {
-                    commit('SET_CUSTOMERS', response.data)
+                    commit('SET_CUSTOMERS', response.data.customers)
                 })
                 .catch(error => {
                     console.log("error when fetching customer list " + error)

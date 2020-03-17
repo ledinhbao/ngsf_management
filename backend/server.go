@@ -9,8 +9,11 @@ import (
 
 // Customer struct contains information about an customer
 type Customer struct {
-	ID   uint   `json:"id"`
-	Name string `json:"name"`
+	ID               uint   `json:"id"`
+	Name             string `json:"name"`
+	NGCHolding       int    `json:"ngcholding"`
+	Money            int    `json:"money"`
+	TransactionCount int    `json:"transaction_count"`
 }
 
 func main() {
@@ -23,7 +26,9 @@ func main() {
 	// TODO Fetch customers data from database
 	app.GET("/customers", func(c *gin.Context) {
 		c.JSON(http.StatusOK, gin.H{
-			"customers": Customer{ID: 1, Name: "Tran Huu Nghi"},
+			"customers": []Customer{
+				Customer{1, "Tran Huu Nghi", 16000, 160.00, 1},
+			},
 		})
 	})
 

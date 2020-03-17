@@ -1,8 +1,8 @@
 <template>
     <div class="customer-card">
         <span class="customer-name">{{ customer.name }}</span>
-        <span class="customer-ngc">16000</span>
-        <span class="customer-capital">160.00$</span>
+        <span class="customer-ngc">{{ customer.ngcholding }}</span>
+        <span class="customer-capital">{{ customer.money }}</span>
     </div>
 </template>
 

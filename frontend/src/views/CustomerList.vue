@@ -1,6 +1,9 @@
 <template>
     <div class="home">
         <h1>Danh sách nhà đầu tư</h1>
+        <div class="nav">
+            <router-link :to="{ name: 'customer-create' }">Thêm nhà đầu tư</router-link>
+        </div>
         <div class="customer-card header">
             <span class="customer-name">Nhà đầu tư</span>
             <span class="customer-ngc">NGC nắm giữ</span>
