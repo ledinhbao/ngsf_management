@@ -6,10 +6,11 @@ import (
 
 	"github.com/gin-contrib/cors"
 	"github.com/gin-gonic/gin"
+	"github.com/ledinhbao/ngsf-management/ngsf"
 )
 
-// Customer struct contains information about an customer
-type Customer struct {
+// CustomerAPIData struct contains information about an customer
+type CustomerAPIData struct {
 	ID               uint   `json:"id"`
 	Name             string `json:"name" form:"name"`
 	NGCHolding       int    `json:"ngcholding" form:"ngcholding"`
@@ -17,21 +18,8 @@ type Customer struct {
 	TransactionCount int    `json:"transaction_count"`
 }
 
-// NGCTransaction records a transaction between customer and the Capital
-type NGCTransaction struct {
-	ID         uint
-	CustomerID uint
-	Amount     int
-	Price      float32
-	Date       time.Time
-
-	// database fields
-	CreatedAt time.Time
-	UpdatedAt time.Time
-}
-
-var customers = []Customer{
-	Customer{
+var customers = []CustomerAPIData{
+	CustomerAPIData{
 		ID:               1,
 		Name:             "Tran Huu Nghi",
 		NGCHolding:       16000,
@@ -39,8 +27,8 @@ var customers = []Customer{
 		TransactionCount: 1,
 	},
 }
-var ngcTransactions = []NGCTransaction{
-	NGCTransaction{
+var ngcTransactions = []ngsf.NGCTransaction{
+	{
 		ID:         1,
 		CustomerID: 1,
 		Amount:     16000,
@@ -66,7 +54,7 @@ func main() {
 	})
 
 	app.POST("/customer/create", func(c *gin.Context) {
-		var newCustomer Customer = Customer{}
+		var newCustomer CustomerAPIData = CustomerAPIData{}
 		c.BindJSON(&newCustomer)
 		newCustomer.ID = uint(len(customers) + 1)
 		customers = append(customers, newCustomer)
